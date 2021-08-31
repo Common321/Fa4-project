@@ -1,0 +1,147 @@
+create schema User_db;
+
+use User_db;
+
+
+create table buyer(
+	
+	buyerid varchar(20) primary key,
+	
+	name varchar(50),
+	
+	email varchar(50),
+	
+	phoneNo bigint,
+	
+	password varchar(20),
+	
+	isprivileged boolean,
+	
+	rewardpoints int,
+	
+	isactive boolean
+	
+
+);
+
+insert into buyer values('b2001','Mark','Mark@gmail.com',9108926767,'Mark12!', true , 1, true);
+
+insert into buyer values('b2002','Peter','Peter@gmail.com',9108926755,'Peter34!', true , 1, true);
+
+create table seller(
+	
+	sellerid varchar(20) primary key,
+		
+	name varchar(50),
+	
+	email varchar(50),
+	
+	phoneNo bigint,
+	
+	password varchar(50),
+	
+	isactive boolean
+	
+
+);
+
+insert into seller values('s2001','Mark','Mark@gmail.com',9108926767,'Mark12!', true );
+
+insert into seller values('s2002','Peter','Peter@gmail.com',9108926755,'Peter34!', true );
+
+create table cart(
+	
+	buyerid varchar(20),    
+	prodid varchar(20),
+	 
+	quantity integer,  
+	primary key(`buyerid`,`prodid`)
+);
+
+insert into cart values('b2001', 'p1009', 4);
+insert into cart values('b2002', 'p1008', 7);
+
+
+
+create table wishlist(
+
+	buyerid varchar(20),    
+	prodid varchar(20),  
+	primary key(`buyerid`,`prodid`)
+);
+insert into wishlist values('b2001', 'p1009');
+insert into wishlist values('b2002', 'p1008');
+
+=============================================================================================
+
+create schema Product_db;
+
+use Product_db;
+
+
+create table product(
+	
+	prodid varchar(20) primary key,
+	
+	productname varchar(50),
+	
+	price decimal(6,2),
+	
+	stock integer,
+	
+	description varchar(100),
+	
+	image varchar(300),
+	sellerid varchar(20),
+	category varchar(50),
+	
+	subcategory varchar(50),
+	
+	productrating integer
+
+);
+insert into product values('p1008', 'Lotion', 299, 5, 'xyz', 'https://www.google.com/search?q=panda+images&sxsrf=AOaemvJl_t7talavxTouZRP6mGNq9LKU9A:1630408064414&source=lnms&tbm=isch&sa=X&ved=2ahUKEwiCn5Ksj9vyAhUUb30KHUMvBDoQ_AUoAXoECAEQAw&biw=1280&bih=555#imgrc=xIGuGN_dDQW5QM', 's2001', 'lakme', 'products', 4);
+
+create table subscribeproduct(
+
+	buyerid varchar(20),
+	
+	prodid varchar(20),
+	
+	quantity int,  
+	primary key(`buyerid`,`prodid`)
+);
+
+==================================================================================
+
+
+create schema Order_db;
+
+use Order_db;
+
+
+create table ordertable(
+	
+	orderid varchar(20) primary key,
+	
+	buyerid varchar(20),
+	
+	amount decimal(6,2),
+	
+	dateoforder date,
+	
+	address varchar(50)
+);
+
+insert into ordertable('o1056', 'b2001', 3009, '02/02/2020','Jaipur');
+
+create table productsordered(
+	
+	buyerid bigint,
+		
+	prodid varchar(20),
+	
+	sellerid varchar(20),
+	quantity int,  
+	primary key(`buyerid`,`prodid`)
+);
